@@ -46,7 +46,7 @@ string currentMovement = "Yoga_Krieger5";
 // Path for the source files
 string trainingFilePath = "../Training/";
 // Base file name in the format "<trainingFileName>_<number>.txt" (only trainingFileName required)
-string trainingFileName = "Yoga_Krieger";
+string trainingFileName = "Yoga_Krieger_";
 // Path for HMM and clusters to be saved in
 string writeFilePath = "../Tracking/";
 // Base file name for files to be created (ending either in _<number>_HMM or _<number>_cluster)
@@ -144,7 +144,7 @@ int main() {
 			}
 		}
 		if (emptyTracker) {
-			std::cout << " \} \nThose trackers have been skipped and no corresponding HMM was created. \n\n";
+			std::cout << " \n\nThose trackers have been skipped and no corresponding HMM was created. \n\n";
 		}
 
 		for (int ii = 0; ii < 6; ii++) {
@@ -381,9 +381,10 @@ int getFullTrainingNumber(string trainingFilePath, string trainingFileName) {
 	while (ifstream(trainingFilePath + trainingFileName + std::to_string(trainingNumber) + ".txt")) {
 		trainingNumber++;
 	}
+    cout << std::to_string(trainingNumber) + "\n";
 	return trainingNumber;
 }
-
+ 
 
 /********************************************************************************
 * method:		updateFilePaths
