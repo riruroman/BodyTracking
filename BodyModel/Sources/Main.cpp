@@ -568,8 +568,8 @@ namespace {
 					vec3 angularAcceleration = state.pose.angularAcceleration;
 
 					// You can access linear and angular velocity
-					log(Info, "linearVelocity %f %f %f", velocity.x(), velocity.y(), velocity.z());
-					log(Info, "angularVelocity %f %f %f", angularVelocity.x(), angularVelocity.y(), angularVelocity.z());
+					//log(Info, "linearVelocity %f %f %f", velocity.x(), velocity.y(), velocity.z());
+					//log(Info, "angularVelocity %f %f %f", angularVelocity.x(), angularVelocity.y(), angularVelocity.z());
 
 					// Acceleration vector will always be (0, 0, 0)
 					//log(Info, "linearAcceleration %f %f %f", acceleration.x(), acceleration.y(), acceleration.z());
@@ -589,8 +589,8 @@ namespace {
 					vec3 angularAcceleration = vrDevice.angularAcceleration;
 
 					// You can access linear and angular velocity
-					log(Info, "linearVelocity %f %f %f", velocity.x(), velocity.y(), velocity.z());
-					log(Info, "angularVelocity %f %f %f", angularVelocity.x(), angularVelocity.y(), angularVelocity.z());
+					//log(Info, "linearVelocity %f %f %f", velocity.x(), velocity.y(), velocity.z());
+					//log(Info, "angularVelocity %f %f %f", angularVelocity.x(), angularVelocity.y(), angularVelocity.z());
 					
 					// Acceleration vector will always be (0, 0, 0)
 					//log(Info, "linearAcceleration %f %f %f", acceleration.x(), acceleration.y(), acceleration.z());
