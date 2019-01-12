@@ -134,6 +134,10 @@ namespace {
 		
 		return M;
 	}
+
+	bool calibratedAvatarCompletely() {
+		return (calibratedAvatarScale && calibratedAvatarControllersAndTrackers);
+	}
 	
 	void renderControllerAndTracker(int tracker, Kore::vec3 desPosition, Kore::Quaternion desRotation) {
 		// World Transformation Matrix
@@ -153,7 +157,7 @@ namespace {
 		}
 		
 		// Render a local coordinate system only if the avatar is not calibrated
-		if (!calibratedAvatar) {
+		if (!calibratedAvatarCompletely()) {
 			renderVRDevice(2, W);
 			renderVRDevice(2, M);
 		}
@@ -341,7 +345,7 @@ namespace {
 				#else
 					// these placeholder values are only meant for testing with predetermined movement sets, not for recording new data
 					rawAngVel = vec3(1, 2, 3);
-					desAngVel = rawAngVel;
+					desAngVel = desRotation;
 					rawLinVel = vec3(7, 8, 9);
 					desLinVel = rawLinVel;
 					rawPosition = desPosition;
@@ -384,6 +388,8 @@ namespace {
 		initTrans = mat4::Translation(initPos.x(), initPos.y(), initPos.z()) * initRot.matrix().Transpose();
 		initTransInv = initTrans.Invert();
 	}
+
+
 	
 	void calibrate() {
 		initTransAndRot();
@@ -688,7 +694,7 @@ namespace {
 				endEffector[i]->setDesPosition(desPosition[i]);
 				endEffector[i]->setDesRotation(desRotation[i]);
 				
-				if (calibratedAvatar && i == hip) {
+				if (calibratedAvatarCompletely() && i == hip) {
 					// Update Local Coordinate System
 					updateTransAndRot();
 				}
@@ -709,7 +715,8 @@ namespace {
 			
 			if (!dataAvailable) {
 				currentFile++;
-				calibratedAvatar = false;
+				calibratedAvatarScale = false;
+				calibratedAvatarControllersAndTrackers = false;
 			}
 			
 		} else {
@@ -771,9 +778,7 @@ namespace {
 		Graphics4::swapBuffers();
 	}
 
-	bool calibratedAvatarCompletely() {
-		return (calibratedAvatarScale && calibratedAvatarControllersAndTrackers);
-	}
+
 	
 	void keyDown(KeyCode code) {
 		switch (code) {
