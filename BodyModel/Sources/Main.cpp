@@ -35,7 +35,7 @@ namespace {
 	const int width = 1024;
 	const int height = 768;
 	
-	const bool renderRoom = false;
+	const bool renderRoom = true;
 	const bool renderTrackerAndController = true;
 	const bool renderAxisForEndEffector = false;
 	
@@ -120,6 +120,10 @@ namespace {
 	int loop = 0;
 #endif
 	
+	bool calibratedAvatarCompletely() {
+		return (calibratedAvatarScale && calibratedAvatarControllersAndTrackers);
+	}
+		
 	void renderVRDevice(int index, Kore::mat4 M) {
 		Graphics4::setMatrix(mLocation, M);
 		viveObjects[index]->render(tex);
@@ -153,7 +157,7 @@ namespace {
 		}
 		
 		// Render a local coordinate system only if the avatar is not calibrated
-		if (!calibratedAvatar) {
+		if (!calibratedAvatarCompletely()) {
 			renderVRDevice(2, W);
 			renderVRDevice(2, M);
 		}
@@ -805,9 +809,7 @@ namespace {
 		Graphics4::swapBuffers();
 	}
 
-	bool calibratedAvatarCompletely() {
-		return (calibratedAvatarScale && calibratedAvatarControllersAndTrackers);
-	}
+
 	
 	void keyDown(KeyCode code) {
 		switch (code) {
