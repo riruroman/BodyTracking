@@ -151,7 +151,7 @@ namespace {
 		}
 		
 		// Render a local coordinate system only if the avatar is not calibrated
-		if (!calibratedAvatar) {
+		if (!calibratedAvatarCompletely()) {
 			renderVRDevice(2, W);
 			renderVRDevice(2, M);
 		}
@@ -339,7 +339,7 @@ namespace {
 				#else
 					// these placeholder values are only meant for testing with predetermined movement sets, not for recording new data
 					rawAngVel = vec3(1, 2, 3);
-					desAngVel = rawAngVel;
+					desAngVel = desRotation;
 					rawLinVel = vec3(7, 8, 9);
 					desLinVel = rawLinVel;
 					rawPosition = desPosition;
@@ -597,7 +597,7 @@ namespace {
 					endEffector[i]->setDesPosition(vrDevice.vrPose.position);
 					endEffector[i]->setDesRotation(vrDevice.vrPose.orientation);
 					
-					if (calibratedAvatar && i == hip) {
+					if (calibratedAvatarCompletely() && i == hip) {
 						// Update Local Coordinate System
 						updateTransAndRot();
 					}
@@ -659,7 +659,7 @@ namespace {
 				endEffector[i]->setDesPosition(desPosition[i]);
 				endEffector[i]->setDesRotation(desRotation[i]);
 				
-				if (calibratedAvatar && i == hip) {
+				if (calibratedAvatarCompletely() && i == hip) {
 					// Update Local Coordinate System
 					updateTransAndRot();
 				}
